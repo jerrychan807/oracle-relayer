@@ -71,6 +71,7 @@ func (e *Executor) GetAddress() types.ValAddress {
 
 // GetProphecy returns the prophecy of the given sequence
 func (e *Executor) GetProphecy(chainId uint16, sequence int64) (*msg.Prophecy, error) {
+	//
 	prop, err := e.getClient().GetProphecy(types.IbcChainID(chainId), sequence)
 	if err != nil {
 		return nil, err
@@ -79,9 +80,10 @@ func (e *Executor) GetProphecy(chainId uint16, sequence int64) (*msg.Prophecy, e
 }
 
 // Claim sends claim to Binance Chain
+// 发送声明到BC链上
 func (e *Executor) Claim(chainId uint16, sequence uint64, payload []byte) (string, error) {
 	client := e.getClient()
-
+	// 私钥管理
 	keyManager, err := getKeyManager(e.config.ChainConfig)
 	if err != nil {
 		return "", fmt.Errorf("get key manager error, err=%s", err.Error())
@@ -93,6 +95,7 @@ func (e *Executor) Claim(chainId uint16, sequence uint64, payload []byte) (strin
 	if err != nil {
 		return "", err
 	}
+	// 怎么才算claim成功?
 	if res.Code != 0 {
 		return "", fmt.Errorf("claim error, code=%d, log=%s", res.Code, res.Log)
 	}

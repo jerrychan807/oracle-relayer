@@ -1,7 +1,7 @@
 {
   "db_config": {
     "dialect": "mysql",
-    "db_path": "root:trade123@(localhost:3306)/orelayer?charset=utf8&parseTime=True&loc=Local"
+    "db_path": "root:trade123@(localhost:3306)/orelayer1?charset=utf8&parseTime=True&loc=Local"
   },
   "chain_config": {
     "bsc_chain_id": 714,
@@ -14,7 +14,7 @@
     "bbc_key_type": "mnemonic",
     "bbc_aws_region": "",
     "bbc_aws_secret_name": "",
-    "bbc_mnemonic": "size soft smooth like opinion chuckle canoe hammer attend yard copy annual enroll expect license author notable act once reward wheel equip gap glove",
+    "bbc_mnemonic": "art leisure virus south work force drink rally carry smoke august suffer outside cloud core pipe addict winner pull easy slide clever sword arctic",
 
     "relay_interval": 1000
   },
@@ -29,7 +29,7 @@
     "compress": false
   },
   "admin_config": {
-    "listen_addr": ":8090"
+    "listen_addr": ":8091"
   },
   "alert_config": {
     "moniker": "moniker",

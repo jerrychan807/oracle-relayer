@@ -34,6 +34,7 @@ func (ob *Observer) Start() {
 	go ob.Alert()
 }
 
+// 开始读取BSC上的区块数据
 // Fetch starts the main routine for fetching blocks of BSC
 func (ob *Observer) Fetch(startHeight int64) {
 	for {
@@ -76,7 +77,7 @@ func (ob *Observer) fetchBlock(curHeight, nextHeight int64, curBlockHash string)
 			Height:     blockAndPackageLogs.Height,
 			BlockTime:  blockAndPackageLogs.BlockTime,
 		}
-
+		// 将区块的一些简要数据保存到数据库中
 		err := ob.SaveBlockAndPackages(&nextBlockLog, blockAndPackageLogs.Packages)
 		if err != nil {
 			return err
@@ -111,6 +112,7 @@ func (ob *Observer) DeleteBlockAndPackages(height int64) error {
 }
 
 // UpdateConfirmedNum updates confirmation number of cross-chain packages.
+// 更新跨链包的确认数
 func (ob *Observer) UpdateConfirmedNum(height int64) error {
 	err := ob.DB.Model(model.CrossChainPackageLog{}).Where("status = ?", model.PackageStatusInit).Updates(
 		map[string]interface{}{
@@ -158,12 +160,12 @@ func (ob *Observer) SaveBlockAndPackages(blockLog *model.BlockLog, packages []in
 	if err := tx.Error; err != nil {
 		return err
 	}
-
+	// 入库区块数据
 	if err := tx.Create(blockLog).Error; err != nil {
 		tx.Rollback()
 		return err
 	}
-
+	// 入库跨链包数据
 	for _, pack := range packages {
 		if err := tx.Create(pack).Error; err != nil {
 			tx.Rollback()

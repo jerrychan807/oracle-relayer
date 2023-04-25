@@ -67,6 +67,7 @@ func (e *Executor) getClient() *ethclient.Client {
 }
 
 // GetBlockAndPackages returns the block and cross-chain packages of the given height
+// 区块数据和区块内的跨链包
 func (e *Executor) GetBlockAndPackages(height int64) (*common.BlockAndPackageLogs, error) {
 	ctxWithTimeout, cancel := context.WithTimeout(context.Background(), 5*time.Second)
 	defer cancel()
@@ -92,6 +93,7 @@ func (e *Executor) GetBlockAndPackages(height int64) (*common.BlockAndPackageLog
 }
 
 // GetLogs return the cross-chain packages of the given height
+// 从给定的区块高度中, 获取所有的跨链包
 func (e *Executor) GetLogs(client *ethclient.Client, header *types.Header) ([]interface{}, error) {
 	topics := [][]ethcmm.Hash{{CrossChainPackageEventHash}}
 
